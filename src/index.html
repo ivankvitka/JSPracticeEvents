@@ -6,10 +6,18 @@
   <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-<div id="slider" class="slider">
+<div class="menu">
+  <span class="menu__close-btn">&times;</span>
+  <a href="#" class="menu__item">task #1</a>
+  <a href="#" class="menu__item">task #2</a>
+  <a href="#" class="menu__item">task #3</a>
+</div>
+<div id="task1" class="task">
+  <h2 class="task__title">SLIDER</h2>
+</div>
+<div class="slider">
   <div class="slider__gallery">
     <ul class="slider__list">
-
     </ul>
   </div>
   <div class="slider__switcher slider__switcher--left">
@@ -19,6 +27,18 @@
     <div class="slider__arrow slider__arrow--right"></div>
   </div>
 </div>
-<script src="scripts/slider.js"></script>
+<div class="task">
+  <h2 id="task2" class="task__title">MENU</h2>
+  <span class="open-btn">OPEN MENU</span>
+</div>
+
+<div class="task">
+  <div class="modal-window">
+    <
+  </div>
+</div>
+<script src="scripts/menu.js" defer></script>
+<script src="scripts/slider.js" defer></script>
+<script src="scripts/scroll.js" defer></script>
 </body>
 </html>

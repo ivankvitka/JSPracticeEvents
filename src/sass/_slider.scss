@@ -19,12 +19,12 @@
 
   &__item {
     position: absolute;
-    transition: 1s;
-    height: 100%;
   }
 
   &__image {
     width: 100%;
+    height: auto;
+    transition: all 0.5s;
   }
 
   &__switcher {
@@ -64,7 +64,7 @@
     height: 48px;
     border-color: #000;
     transform: rotate(45deg);
-    transition: all 0.5s;
+    transition: all 0.2s;
 
     &--left {
       border-bottom: 6px solid;

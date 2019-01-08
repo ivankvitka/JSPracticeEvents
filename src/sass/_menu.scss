@@ -1,0 +1,40 @@
+.menu {
+  position: fixed;
+  width: 20%;
+  height: 100vh;
+  padding-top: 50px;
+  text-align: center;
+  z-index: 10;
+  background-color: #4f4f4f;
+  transform: translateX(-100%);
+  transition: all 0.5s;
+
+  &__item {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 40px;
+    color: #ffffff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: 40px;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    transform-origin: 50% 50%;
+    transition: transform 0.3s;
+
+    &:hover {
+      color: lightgray;
+      transform: rotate(90deg);
+    }
+  }
+}
