@@ -1,6 +1,6 @@
 (function menu() {
   var closeBtn = document.querySelector('.menu__close-btn');
-  var openBtn = document.querySelector('.open-btn');
+  var openBtn = document.querySelector('.js-menu-open-btn');
   var menu = document.querySelector('.menu');
   if (menu) {
     function close() {
