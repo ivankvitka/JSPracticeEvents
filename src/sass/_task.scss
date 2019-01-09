@@ -1,7 +1,25 @@
 .task {
+  padding: 20px 0 20px;
   text-align: center;
   background-color: lightgray;
+
   &__title {
     font-size: 40px;
+    color: #4f4f4f;
+  }
+
+  &__open-btn {
+    cursor: pointer;
+    padding: 0 20px 0;
+    font-size: 30px;
+    color: #ffffff;
+    background-color: darkgray;
+    border-radius: 2px;
+    transition: all 0.5s;
+
+    &:hover {
+      color: darkgray;
+      background-color: black;
+    }
   }
 }
