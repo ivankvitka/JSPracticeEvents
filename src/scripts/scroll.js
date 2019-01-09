@@ -1,33 +1,33 @@
-function smoothScroll(target, duration) {
-  var target = document.getElementById(target);
-  var targetPosition = target.getBoundingClientRect().top;
-  var startPosition = window.pageYOffset;
-  var distance = targetPosition - startPosition;
-  var startTime = null;
+var menuLinks = document.querySelectorAll('.menu__item');
 
-  function animation(currentTime) {
-    if (startTime === null) {
-      startTime = currentTime;
-    }
-    var timeElapsed = currentTime - startTime;
-    var timingFunction = linear(timeElapsed, startPosition, distance, duration);
-    window.scrollTo(0, timingFunction);
-    if (timeElapsed < duration) {
-      requestAnimationFrame(animation);
-    }
-  }
-
-  function linear(t, b, c, d) {
-    return c * t / d + b;
-  }
-  requestAnimationFrame(animation);
+for (var i = 0; i < menuLinks.length; i++) {
+  menuLinks[i].addEventListener('click', menuLinkClick);
 }
 
-var links = document.querySelectorAll('.menu__item  ');
-links[0].addEventListener('click', function() {
-  smoothScroll('task1', 500);
-});
+function menuLinkClick(event) {
+  smoothScroll(event);
+}
 
-links[1].addEventListener('click', function() {
-  smoothScroll('task2', 500);
-});
+function smoothScroll(event) {
+  event.preventDefault();
+  var targetId = event.currentTarget.getAttribute('href');
+  var targetPosition = document.querySelector(targetId).offsetTop;
+  var startPosition = window.pageYOffset;
+  var distance = targetPosition - startPosition;
+  var duration = 1000;
+  var start = null;
+
+  window.requestAnimationFrame(step);
+
+  function step(timestamp) {
+    if (!start) {
+      start = timestamp;
+    }
+    var progress = timestamp - start;
+    window.scrollTo(0, distance * (progress / duration) + startPosition);
+    if (progress < duration) {
+      window.requestAnimationFrame(step);
+    }
+  }
+
+}
