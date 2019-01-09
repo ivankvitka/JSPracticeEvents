@@ -19,12 +19,19 @@
 
   &__item {
     position: absolute;
+    opacity: 0.5;
+    transform: translateX(100%);
+    transition: all 0.5s;
+
+    &--current {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   &__image {
     width: 100%;
     height: auto;
-    transition: all 0.5s;
   }
 
   &__switcher {

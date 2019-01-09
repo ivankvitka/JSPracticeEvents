@@ -9,7 +9,7 @@
 
   function showNextSlide() {
     if (currentSlide === imgArr.length - 1) {
-      currentSlide = 0;
+      return currentSlide;
     } else {
       currentSlide++;
     }
@@ -18,29 +18,16 @@
 
   function showPreviousSlide() {
     if (currentSlide === 0) {
-      currentSlide = imgArr.length - 1;
+      return currentSlide;
     } else {
       currentSlide--;
     }
     return currentSlide;
   }
 
-  function changeSlideStyle(prev) {
+  function changeSlideStyle() {
     for (var i = 0; i < items.length; i++) {
-      var image = items[i].querySelector('.slider__image');
-      if (i === currentSlide) {
-        items[i].style.zIndex = '2';
-        image.style.borderRadius ='0';
-        image.style.transform = 'scale(1)';
-      } else if (i === prev){
-        items[i].style.zIndex = '1';
-        image.style.borderRadius ='0';
-        image.style.transform = 'scale(1)';
-      } else {
-        items[i].style.zIndex = '0';
-        image.style.borderRadius ='50%';
-        image.style.transform = 'scale(0)';
-      }
+      items[i].style.zIndex = '' + i;
     }
   }
 
@@ -55,7 +42,6 @@
         var image = document.createElement('img');
         image.className = 'slider__image';
         image.setAttribute('src', 'images/' + imgArr[i].image);
-        console.log(imgArr[i].image);
         image.setAttribute('alt', imgArr[i].alt);
         list.appendChild(li);
         li.appendChild(image);
@@ -70,22 +56,22 @@
   var items = document.querySelectorAll('.slider__item');
 
   if (items) {
-
     changeSlideStyle();
+    items[currentSlide].classList.add('slider__item--current');
   } else {
     console.log('elements not found');
   }
 
   function slideLeft() {
-    var prevSlide = currentSlide;
+    if (currentSlide !== 0) {
+      items[currentSlide].classList.remove('slider__item--current');
+    }
     showPreviousSlide();
-    changeSlideStyle(prevSlide);
   }
 
   function slideRight() {
-    var prevSlide = currentSlide;
     showNextSlide();
-    changeSlideStyle(prevSlide);
+    items[currentSlide].classList.add('slider__item--current');
   }
 
   var left = document.querySelector('.slider__switcher--left');
