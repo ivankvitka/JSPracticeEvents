@@ -38,7 +38,6 @@
 .slider {
   position: relative;
   width: 100%;
-  height: 100vh;
   background-color: lightgray;
 }
 
@@ -52,10 +51,6 @@
 .slider__list {
   position: relative;
   list-style: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .slider__item {
@@ -78,6 +73,12 @@
 
 .slider__image {
   width: 100%;
+}
+
+.slider__hidden {
+  display: block;
+  visibility: hidden;
+  max-width: 100%;
   height: auto;
 }
 
