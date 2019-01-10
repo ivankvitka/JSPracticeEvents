@@ -1,4 +1,4 @@
-;(function() {
+(function() {
   var menuBtn = document.querySelector('.js-modal-open-btn');
   var modal = document.querySelector('.modal');
   var modalWindow = modal.querySelector('.modal__window');

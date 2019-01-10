@@ -2,7 +2,6 @@
   padding: 20px 10px;
   text-align: left;
   color: #4f4f4f;
-  overflow: hidden;
 
   &__tabs {
     display: flex;
@@ -35,14 +34,34 @@
     }
   }
 
+  &__text-box {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid #919191;
+  }
+
   &__description {
-    display: none;
+    position: absolute;
+    top: 0;
     padding: 10px;
     text-align: justify;
     font-size: 20px;
-    border-top: 1px solid #919191;
+    transform: translateY(-100%);
+    opacity: 0.3;
+    transition: all 0.5s;
+
     &--current {
-      display: block;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    &--hidden {
+      visibility: hidden;
+      top: 0;
+      padding: 10px;
+      text-align: justify;
+      font-size: 20px;
+      border-top: 1px solid #919191;
     }
   }
 }
