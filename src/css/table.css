@@ -31,6 +31,10 @@ cite {
     background-color: #f3f3f3;
 }
 
+.hidden {
+    display: none;
+}
+
 #medals-table tr:hover {
     background-color: rgba(214, 214, 214, 0.4);
 }
@@ -64,19 +68,6 @@ cite {
 #medals-table .medals.all {
     font-weight: bold;
 }
-
-/**
- * Position counter
- */
-#medals-table {
-    counter-reset: overall-position;
-}
-
-#medals-table .position::before {
-    counter-increment: overall-position;
-    content: counter(overall-position);
-}
-
 /**
  * Flags icons
  */
