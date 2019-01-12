@@ -3,23 +3,38 @@
   var rows = tBody.querySelectorAll('tr');
   var positions = tBody.querySelectorAll('.position');
   var showInput = document.querySelector('.show__input');
+  var rowsOnPage = +showInput.value;
+  var amountOfPages = Math.ceil(rows.length / rowsOnPage);
   var filterInput = document.querySelector('.filter__input');
+  var list = document.querySelector('.pager__list');
+  var pagerItemsList = document.querySelectorAll('.pager__list-item');
   var pagerPagesList = document.querySelectorAll('.pager__page');
-  var tripleDots = document.querySelectorAll('.js-triple-dots');
   var prev = document.querySelector('.pager__prev');
   var next = document.querySelector('.pager__next');
   var currentPage = 0;
 
-  showNRowsOnPage(+showInput.value);
-  showInput.addEventListener('click', showCurrentPage);
-  showInput.addEventListener('keyup', showCurrentPage);
+
+  createPages();
+  setCurrentPage();
+  showInput.addEventListener('click', changeAmountOfPages);
+  showInput.addEventListener('keyup', changeAmountOfPages);
   filterInput.addEventListener('keyup', filterRows);
+  next.addEventListener('click', showNext);
+  prev.addEventListener('click', showPrev);
+  setEventOnPagerPages();
 
 
+  function setEventOnPagerPages() {
     for (var i = 0; i < pagerPagesList.length; i++) {
-      pagerPagesList[i].addEventListener('click', showCurrentPage);
+      pagerPagesList[i].addEventListener('click', selectCurrentPage);
     }
+  }
 
+  function selectCurrentPage() {
+    currentPage = +this.innerText - 1;
+    resetStyle();
+    setCurrentPage();
+  }
 
   function resetStyle() {
     for (var i = 0; i < pagerPagesList.length; i++) {
@@ -27,117 +42,150 @@
       pagerPagesList[i].setAttribute('href', '#');
     }
   }
-  /*
+
+  function changeAmountOfPages() {
     createPages();
-
-    function createPages() {
-      var list = document.querySelector('.pager__list');
-      var rowsOnPage = +showInput.value;
-      var amountOfPages = Math.round(rows.length / rowsOnPage);
-      for (var i = 0; i < amountOfPages; i++) {
-        var pagerListItem = document.createElement('li');
-        pagerListItem.classList.add('pager__lit-item');
-        list.appendChild(pagerListItem);
-        var pagerPage = document.createElement('a');
-        pagerPage.classList.add('pager__page');
-        pagerPage.setAttribute('href', '#');
-        pagerPage.innerText = '' + (i + 1);
-        pagerListItem.appendChild(pagerPage);
-      }
-    }
-
     setCurrentPage();
+    setEventOnPagerPages();
+  }
 
-    function setCurrentPage() {
-      var pagerPagesList = document.querySelectorAll('.pager__page');
-      pagerPagesList[currentPage].classList.add('pager__page--current');
-      hidePagers(pagerPagesList, pagerPagesList.length);
-      pagerPagesList[0].classList.remove('pager__hidden');
-      pagerPagesList[pagerPagesList.length - 1].classList.remove('pager__hidden');
-      if (currentPage === 0) {
-        pagerPagesList[currentPage + 1].classList.remove('pager__hidden');
-        pagerPagesList[currentPage + 2].classList.remove('pager__hidden');
-      } else if (currentPage === 1)
+  function createPages() {
+    rowsOnPage = +showInput.value;
+    if (rowsOnPage) {
+      amountOfPages = Math.ceil(rows.length / rowsOnPage);
     }
+    clearPages();
+    for (var i = 0; i < amountOfPages; i++) {
+      var pagerItem = document.createElement('li');
+      pagerItem.classList.add('pager__list-item');
+      list.appendChild(pagerItem);
+      var pagerPage = document.createElement('a');
+      pagerPage.classList.add('pager__page');
+      pagerPage.setAttribute('href', '#');
+      pagerPage.innerText = '' + (i + 1);
+      pagerItem.appendChild(pagerPage);
+    }
+  }
 
-    function hidePagers(list, length) {
-      for(var i = 0; i < length; i++) {
-        list[i].classList.add('pager__hidden');
-      }
-    }*/
+  function clearPages() {
+    while (list.firstChild) {
+      list.removeChild(list.firstChild);
+    }
+  }
 
-    function showCurrentPage() {
-      var rowsOnPage = +showInput.value;
-      var amountOfPages = Math.round(rows.length / rowsOnPage);
-      pagerPagesList[4].innerText = amountOfPages;
-      if (this.getAttribute('href') === '#') {
-        if (this.innerText === '1' || this.innerText === '2' || this.innerText === '3') {
-          resetStyle();
-          tripleDots[0].classList.add('pager__hidden');
-          tripleDots[1].classList.remove('pager__hidden');
-          if (this.innerText === '1') {
-            pagerPagesList[0].classList.add('pager__page--current');
-            currentPage = 0;
-            pagerPagesList[3].classList.add('pager__hidden');
-          } else if (this.innerText === '2') {
-            pagerPagesList[1].classList.add('pager__page--current');
-            currentPage = 1;
-            pagerPagesList[3].classList.add('pager__hidden');
-          } else if (this.innerText === '3') {
-            pagerPagesList[2].classList.add('pager__page--current');
-            currentPage = 2;
-            pagerPagesList[3].innerText = '4';
-          }
-          pagerPagesList[0].innerText = '1';
-          pagerPagesList[1].innerText = '2';
-          pagerPagesList[2].innerText = '3';
-        } else if (this.innerText === '' + amountOfPages
-          || this.innerText === '' + (amountOfPages - 1)
-          || this.innerText === '' + (amountOfPages - 2)) {
-          resetStyle();
-          tripleDots[0].classList.remove('pager__hidden');
-          tripleDots[1].classList.add('pager__hidden');
-          if (this.innerText === '' + amountOfPages) {
-            pagerPagesList[4].classList.add('pager__page--current');
-            currentPage = amountOfPages - 1;
-            pagerPagesList[1].classList.add('pager__hidden');
-          } else if (this.innerText === '' + (amountOfPages - 1)) {
-            pagerPagesList[3].classList.add('pager__page--current');
-            currentPage = amountOfPages - 2;
-            pagerPagesList[1].classList.add('pager__hidden');
-          } else if (this.innerText === '' + (amountOfPages - 2)) {
-            pagerPagesList[2].classList.add('pager__page--current');
-            currentPage = amountOfPages - 3;
-            pagerPagesList[1].innerText = '' + (amountOfPages - 3);
-          }
-          pagerPagesList[4].innerText = '' + amountOfPages;
-          pagerPagesList[3].innerText = '' + (amountOfPages - 1);
-          pagerPagesList[2].innerText = '' + (amountOfPages - 2);
+
+  function setCurrentPage() {
+    rowsOnPage = +showInput.value;
+    if (rowsOnPage) {
+      amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    }
+    pagerItemsList = document.querySelectorAll('.pager__list-item');
+    pagerPagesList = document.querySelectorAll('.pager__page');
+    if (pagerPagesList[currentPage]) {
+      var tripleDots = document.createElement('li');
+      tripleDots.innerText = '...';
+      tripleDots.classList.add('js-triple-dots');
+      pagerPagesList[currentPage].classList.add('pager__page--current');
+      if (amountOfPages > 5) {
+        hidePagers(pagerItemsList, pagerItemsList.length);
+        pagerItemsList[0].classList.remove('pager__hidden');
+        pagerItemsList[pagerItemsList.length - 1].classList.remove('pager__hidden');
+        if (document.querySelector('.js-triple-dots')) {
+          removeDots();
+        }
+        if (currentPage === 0) {
+          prev.removeAttribute('href');
+          pagerItemsList[currentPage + 1].classList.remove('pager__hidden');
+          pagerItemsList[currentPage + 2].classList.remove('pager__hidden');
+          removeDots(tripleDots);
+          list.insertBefore(tripleDots, pagerItemsList[currentPage + 2].nextSibling);
+        } else if (currentPage === 1) {
+          pagerItemsList[currentPage].classList.remove('pager__hidden');
+          pagerItemsList[currentPage + 1].classList.remove('pager__hidden');
+          removeDots(tripleDots);
+          list.insertBefore(tripleDots, pagerItemsList[currentPage + 1].nextSibling);
+        } else if (currentPage === 2) {
+          pagerItemsList[currentPage - 1].classList.remove('pager__hidden');
+          pagerItemsList[currentPage].classList.remove('pager__hidden');
+          pagerItemsList[currentPage + 1].classList.remove('pager__hidden');
+          list.insertBefore(tripleDots, pagerItemsList[currentPage + 1].nextSibling);
+        } else if (currentPage === pagerItemsList.length - 1) {
+          next.removeAttribute('href');
+          pagerItemsList[currentPage - 1].classList.remove('pager__hidden');
+          pagerItemsList[currentPage - 2].classList.remove('pager__hidden');
+          list.insertBefore(tripleDots, pagerItemsList[currentPage - 2]);
+        } else if (currentPage === pagerItemsList.length - 2) {
+          pagerItemsList[currentPage - 1].classList.remove('pager__hidden');
+          pagerItemsList[currentPage].classList.remove('pager__hidden');
+          list.insertBefore(tripleDots, pagerItemsList[currentPage - 1]);
+        } else if (currentPage === pagerItemsList.length - 3) {
+          pagerItemsList[currentPage - 1].classList.remove('pager__hidden');
+          pagerItemsList[currentPage].classList.remove('pager__hidden');
+          pagerItemsList[currentPage + 1].classList.remove('pager__hidden');
+          list.insertBefore(tripleDots, pagerItemsList[currentPage - 1]);
         } else {
-          tripleDots[0].classList.remove('pager__hidden');
-          tripleDots[1].classList.remove('pager__hidden');
-          if (this === pagerPagesList[3]) {
-            pagerPagesList[1].innerText = '' + (currentPage + 1);
-            pagerPagesList[2].innerText = '' + (currentPage + 2);
-            pagerPagesList[2].removeAttribute('href');
-            pagerPagesList[2].classList.add('pager__page--current');
-            pagerPagesList[3].innerText = '' + (currentPage + 3);
-            currentPage++;
-          } else if (this === pagerPagesList[1]) {
-            pagerPagesList[1].innerText = '' + (currentPage - 1);
-            pagerPagesList[2].innerText = '' + (currentPage);
-            pagerPagesList[2].removeAttribute('href');
-            pagerPagesList[2].classList.add('pager__page--current');
-            pagerPagesList[3].innerText = '' + (currentPage + 1);
-            currentPage--;
-          }
+          pagerItemsList[currentPage - 1].classList.remove('pager__hidden');
+          pagerItemsList[currentPage].classList.remove('pager__hidden');
+          pagerItemsList[currentPage + 1].classList.remove('pager__hidden');
+          list.insertBefore(tripleDots, pagerItemsList[currentPage - 1]);
+          var secondTripleDots = tripleDots.cloneNode(true);
+          list.insertBefore(secondTripleDots, pagerItemsList[currentPage + 1].nextSibling);
         }
       }
-      showNRowsOnPage(rowsOnPage, amountOfPages);
+      if (currentPage < amountOfPages - 1) {
+        next.setAttribute('href', '#');
+      }
+      if (currentPage > 0) {
+        prev.setAttribute('href', '#');
+      }
+      showNRowsOnPage();
     }
+  }
 
+  function removeDots() {
+    var dots = document.querySelectorAll('.js-triple-dots');
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].remove();
+    }
+  }
 
-  function showNRowsOnPage(rowsOnPage, amountOfPages) {
+  function hidePagers(list, length) {
+    for (var i = 0; i < length; i++) {
+      list[i].classList.add('pager__hidden');
+    }
+  }
+
+  function showNext() {
+    pagerPagesList = document.querySelectorAll('.pager__page');
+    rowsOnPage = +showInput.value;
+    if (rowsOnPage) {
+      amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    }
+    currentPage++;
+    if (pagerPagesList[currentPage]) {
+      pagerPagesList[currentPage - 1].classList.remove('pager__page--current');
+      setCurrentPage();
+    } else {
+      currentPage--;
+    }
+  }
+
+  function showPrev() {
+    pagerPagesList = document.querySelectorAll('.pager__page');
+    rowsOnPage = +showInput.value;
+    if (rowsOnPage) {
+      amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    }
+    currentPage--;
+    if (pagerPagesList[currentPage]) {
+      pagerPagesList[currentPage + 1].classList.remove('pager__page--current');
+      setCurrentPage();
+    } else {
+      currentPage++;
+    }
+  }
+
+  function showNRowsOnPage() {
     for (var i = 0; i < rows.length; i++) {
       rows[i].style.display = '';
       positions[i].innerText = i + 1;
@@ -157,39 +205,45 @@
     }
   }
 
-  function showSearchResult() {
-    for (var i = 0; i < rows.length; i++) {
-      rows[i].style.display = '';
-    }
-  }
-
   function filterRows() {
     var cell = document.querySelectorAll('.country');
     var value = filterInput.value.toLowerCase();
     var pager = document.querySelector('.pager');
-    var show = document.querySelector('.show');
-    var rowsOnPage = +showInput.value;
-    var amountOfPages = Math.round(rows.length / rowsOnPage);
+    var showInput = document.querySelector('.show__input');
+    var showTitle = document.querySelectorAll('.show__title');
+    var searchResult = 0;
+    rowsOnPage = +showInput.value;
+    amountOfPages = Math.ceil(rows.length / rowsOnPage);
 
-    console.log(value);
     if (value !== '') {
       for (var i = 0; i < rows.length; i++) {
         if (!cell[i].innerHTML.toLowerCase().includes(value)) {
           rows[i].classList.add('hidden');
         } else {
+          searchResult++;
           rows[i].classList.remove('hidden');
         }
       }
       pager.classList.add('pager__hidden');
-      show.style.visibility = 'hidden';
+      showInput.style.display = 'none';
+      showTitle[0].innerText = 'Find ' + searchResult;
+      showTitle[1].innerText = 'matches';
       showSearchResult();
     } else {
       for (var i = 0; i < rows.length; i++) {
         rows[i].classList.remove('hidden');
       }
       pager.classList.remove('pager__hidden');
-      show.style.visibility = '';
-      showNRowsOnPage(rowsOnPage, amountOfPages);
+      showInput.style.display = '';
+      showTitle[0].innerText = 'Show';
+      showTitle[1].innerText = 'rows on page';
+      showNRowsOnPage();
+    }
+  }
+
+  function showSearchResult() {
+    for (var i = 0; i < rows.length; i++) {
+      rows[i].style.display = '';
     }
   }
 })();
