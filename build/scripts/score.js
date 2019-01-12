@@ -44,6 +44,7 @@
   }
 
   function changeAmountOfPages() {
+    currentPage = 0;
     createPages();
     setCurrentPage();
     setEventOnPagerPages();
