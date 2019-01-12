@@ -36,7 +36,8 @@ gulp.task("browser", function() {
 
 gulp.task("build", function() {
   gulp.src(["src/css/*.css"]).pipe(gulp.dest("build/css"));
-  gulp.src(["src/css/img/*.*"]).pipe(gulp.dest("build/css/img"));
-  gulp.src(["src/img/*.*"]).pipe(gulp.dest("build/img"));
+  gulp.src(["src/images/*.*"]).pipe(gulp.dest("build/images"));
   gulp.src("src/*.html").pipe(gulp.dest("build"));
+  gulp.src("src/html/*.html").pipe(gulp.dest("build/html"));
+  gulp.src("src/scripts/*.js").pipe(gulp.dest("build/scripts"));
 });
