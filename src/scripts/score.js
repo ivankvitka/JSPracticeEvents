@@ -52,9 +52,10 @@
 
   function createPages() {
     rowsOnPage = +showInput.value;
-    if (rowsOnPage) {
-      amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    if (!rowsOnPage) {
+      rowsOnPage = 1;
     }
+    amountOfPages = Math.ceil(rows.length / rowsOnPage);
     clearPages();
     for (var i = 0; i < amountOfPages; i++) {
       var pagerItem = document.createElement('li');
@@ -77,9 +78,10 @@
 
   function setCurrentPage() {
     rowsOnPage = +showInput.value;
-    if (rowsOnPage) {
-      amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    if (!rowsOnPage) {
+      rowsOnPage = 1;
     }
+    amountOfPages = Math.ceil(rows.length / rowsOnPage);
     pagerItemsList = document.querySelectorAll('.js-pager-list-item');
     pagerPagesList = document.querySelectorAll('.js-pager-page');
     if (pagerPagesList[currentPage]) {
@@ -159,9 +161,10 @@
   function showNext() {
     pagerPagesList = document.querySelectorAll('.js-pager-page');
     rowsOnPage = +showInput.value;
-    if (rowsOnPage) {
-      amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    if (!rowsOnPage) {
+      rowsOnPage = 1;
     }
+    amountOfPages = Math.ceil(rows.length / rowsOnPage);
     currentPage++;
     if (pagerPagesList[currentPage]) {
       pagerPagesList[currentPage - 1].classList.remove('pager__page--current');
@@ -174,9 +177,10 @@
   function showPrev() {
     pagerPagesList = document.querySelectorAll('.js-pager-page');
     rowsOnPage = +showInput.value;
-    if (rowsOnPage) {
-      amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    if (!rowsOnPage) {
+      rowsOnPage = 1;
     }
+    amountOfPages = Math.ceil(rows.length / rowsOnPage);
     currentPage--;
     if (pagerPagesList[currentPage]) {
       pagerPagesList[currentPage + 1].classList.remove('pager__page--current');
@@ -215,8 +219,10 @@
     var showTitle = document.querySelectorAll('.js-show-title');
     var searchResult = 0;
     rowsOnPage = +showInput.value;
+    if (!rowsOnPage) {
+      rowsOnPage = 1;
+    }
     amountOfPages = Math.ceil(rows.length / rowsOnPage);
-
     if (value !== '') {
       for (var i = 0; i < rows.length; i++) {
         if (!cell[i].innerHTML.toLowerCase().includes(value)) {
