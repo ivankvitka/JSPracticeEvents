@@ -195,7 +195,7 @@
       rows[i].style.display = '';
       positions[i].innerText = i + 1;
     }
-    for (i = 0; i < rows.length - 1; i += rowsOnPage) {
+    for (i = 0; i < rows.length; i += rowsOnPage) {
       for (var j = i; j < i + rowsOnPage; j++) {
         if (rows[j] && (j < currentPage * rowsOnPage || j > currentPage * rowsOnPage + rowsOnPage - 1)) {
           rows[j].style.display = 'none';
