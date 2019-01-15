@@ -32,13 +32,13 @@
   }
 
   function createGallery() {
-    var slider = document.querySelector('.slider');
-    var list = slider.querySelector('.slider__list');
+    var slider = document.querySelector('.js-slider');
+    var list = slider.querySelector('.js-slider-list');
 
     if (slider && list) {
       for (var i = 0; i < imgArr.length; i++) {
         var li = document.createElement('li');
-        li.className = 'slider__item';
+        li.classList.add('slider__item', 'js-slider-item');
         var image = document.createElement('img');
         image.className = 'slider__image';
         image.setAttribute('src', 'images/' + imgArr[i].image);
@@ -53,7 +53,7 @@
 
   createGallery();
 
-  var items = document.querySelectorAll('.slider__item');
+  var items = document.querySelectorAll('.js-slider-item');
 
   if (items) {
     changeSlideStyle();
@@ -74,8 +74,8 @@
     items[currentSlide].classList.add('slider__item--current');
   }
 
-  var left = document.querySelector('.slider__switcher--left');
-  var right = document.querySelector('.slider__switcher--right');
+  var left = document.querySelector('.js-slider-switcher-left');
+  var right = document.querySelector('.js-slider-switcher-right');
 
   if (left && right) {
     left.addEventListener('click', slideLeft);

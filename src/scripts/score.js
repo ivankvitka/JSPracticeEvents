@@ -2,15 +2,15 @@
   var tBody = document.querySelector('tbody');
   var rows = tBody.querySelectorAll('tr');
   var positions = tBody.querySelectorAll('.position');
-  var showInput = document.querySelector('.show__input');
+  var showInput = document.querySelector('.js-show-input');
   var rowsOnPage = +showInput.value;
   var amountOfPages = Math.ceil(rows.length / rowsOnPage);
-  var filterInput = document.querySelector('.filter__input');
-  var list = document.querySelector('.pager__list');
+  var filterInput = document.querySelector('.js-filter-input');
+  var list = document.querySelector('.js-pager-list');
   var pagerItemsList = document.querySelectorAll('.pager__list-item');
-  var pagerPagesList = document.querySelectorAll('.pager__page');
-  var prev = document.querySelector('.pager__prev');
-  var next = document.querySelector('.pager__next');
+  var pagerPagesList = document.querySelectorAll('.js-pager-page');
+  var prev = document.querySelector('.js-pager-prev');
+  var next = document.querySelector('.js-pager-next');
   var currentPage = 0;
 
 
@@ -58,10 +58,10 @@
     clearPages();
     for (var i = 0; i < amountOfPages; i++) {
       var pagerItem = document.createElement('li');
-      pagerItem.classList.add('pager__list-item');
+      pagerItem.classList.add('pager__list-item', 'js-pager-list-item');
       list.appendChild(pagerItem);
       var pagerPage = document.createElement('a');
-      pagerPage.classList.add('pager__page');
+      pagerPage.classList.add('pager__page', 'js-pager-page');
       pagerPage.setAttribute('href', '#');
       pagerPage.innerText = '' + (i + 1);
       pagerItem.appendChild(pagerPage);
@@ -80,8 +80,8 @@
     if (rowsOnPage) {
       amountOfPages = Math.ceil(rows.length / rowsOnPage);
     }
-    pagerItemsList = document.querySelectorAll('.pager__list-item');
-    pagerPagesList = document.querySelectorAll('.pager__page');
+    pagerItemsList = document.querySelectorAll('.js-pager-list-item');
+    pagerPagesList = document.querySelectorAll('.js-pager-page');
     if (pagerPagesList[currentPage]) {
       var tripleDots = document.createElement('li');
       tripleDots.innerText = '...';
@@ -157,7 +157,7 @@
   }
 
   function showNext() {
-    pagerPagesList = document.querySelectorAll('.pager__page');
+    pagerPagesList = document.querySelectorAll('.js-pager-page');
     rowsOnPage = +showInput.value;
     if (rowsOnPage) {
       amountOfPages = Math.ceil(rows.length / rowsOnPage);
@@ -172,7 +172,7 @@
   }
 
   function showPrev() {
-    pagerPagesList = document.querySelectorAll('.pager__page');
+    pagerPagesList = document.querySelectorAll('.js-pager-page');
     rowsOnPage = +showInput.value;
     if (rowsOnPage) {
       amountOfPages = Math.ceil(rows.length / rowsOnPage);
@@ -198,7 +198,8 @@
         }
       }
     }
-    var pagerInfo = document.querySelector('.pager__info');
+
+    var pagerInfo = document.querySelector('.js-pager-info');
     if (currentPage === amountOfPages - 1) {
       pagerInfo.innerText = 'Show ' + (currentPage * rowsOnPage + 1) + ' to ' + rows.length + ' of ' + rows.length + ' rows';
     } else {
@@ -209,9 +210,9 @@
   function filterRows() {
     var cell = document.querySelectorAll('.country');
     var value = filterInput.value.toLowerCase();
-    var pager = document.querySelector('.pager');
-    var showInput = document.querySelector('.show__input');
-    var showTitle = document.querySelectorAll('.show__title');
+    var pager = document.querySelector('.js-pager');
+    var showInput = document.querySelector('.js-show-input');
+    var showTitle = document.querySelectorAll('.js-show-title');
     var searchResult = 0;
     rowsOnPage = +showInput.value;
     amountOfPages = Math.ceil(rows.length / rowsOnPage);

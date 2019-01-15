@@ -1,11 +1,15 @@
 (function() {
   var menuBtn = document.querySelector('.js-modal-open-btn');
-  var modal = document.querySelector('.modal');
-  var modalWindow = modal.querySelector('.modal__window');
-  var closeBtn = modal.querySelector('.modal__close-btn');
-  var background = modal.querySelector('.modal__background');
-  var modalTitle = modal.querySelector('.modal__title');
-  var modalDescription = modal.querySelector('.modal__description');
+  var modal = document.querySelector('.js-modal');
+  var modalWindow = modal.querySelector('.js-modal-window');
+  var closeBtn = modal.querySelector('.js-modal-close-btn');
+  var background = modal.querySelector('.js-modal-background');
+  var modalTitle = modal.querySelector('.js-modal-title');
+  var modalDescription = modal.querySelector('.js-modal-description');
+
+  menuBtn.addEventListener('click', showModal);
+  closeBtn.addEventListener('click', closeModal);
+  background.addEventListener('click', closeModal);
 
   function showModal() {
     modal.classList.add('modal--visible');
@@ -23,7 +27,4 @@
     closeBtn.classList.remove('modal__title--visible');
   }
 
-  menuBtn.addEventListener('click', showModal);
-  closeBtn.addEventListener('click', closeModal);
-  background.addEventListener('click', closeModal);
 })();

@@ -1,6 +1,6 @@
 (function() {
-  var tabs = document.querySelectorAll('.tabs-wrapper__title');
-  var descriptions = document.querySelectorAll('.tabs-wrapper__description');
+  var tabs = document.querySelectorAll('.js-tabs-wrapper-title');
+  var descriptions = document.querySelectorAll('.js-tabs-wrapper-description');
   tabs.indexOf = [].indexOf;
 
 
