@@ -1,5 +1,5 @@
 (function() {
-  var menuLinks = document.querySelectorAll('.menu__item');
+  var menuLinks = document.querySelectorAll('.js-menu-item');
 
   for (var i = 0; i < menuLinks.length; i++) {
     menuLinks[i].addEventListener('click', menuLinkClick);

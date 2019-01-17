@@ -24,15 +24,6 @@
     &:hover {
       border-color: #919191;
     }
-
-    &--current {
-      border-color: #919191;
-      border-bottom-color: #d3d3d3;
-
-      &:hover {
-        border-bottom-color: #d3d3d3;
-      }
-    }
   }
 
   &__text-box {
@@ -51,11 +42,6 @@
     opacity: 0.3;
     transition: all 0.5s;
 
-    &--current {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
     &--hidden {
       visibility: hidden;
       top: 0;
@@ -65,4 +51,18 @@
       border-top: 1px solid #919191;
     }
   }
+}
+
+.title-current {
+  border-color: #919191;
+  border-bottom-color: #d3d3d3;
+
+  &:hover {
+    border-bottom-color: #d3d3d3;
+  }
+}
+
+.description-current {
+  transform: translateY(0);
+  opacity: 1;
 }

@@ -2,15 +2,15 @@
   var tBody = document.querySelector('tbody');
   var rows = tBody.querySelectorAll('tr');
   var positions = tBody.querySelectorAll('.position');
-  var showInput = document.querySelector('.show__input');
+  var showInput = document.querySelector('.js-show-input');
   var rowsOnPage = +showInput.value;
   var amountOfPages = Math.ceil(rows.length / rowsOnPage);
-  var filterInput = document.querySelector('.filter__input');
-  var list = document.querySelector('.pager__list');
+  var filterInput = document.querySelector('.js-filter-input');
+  var list = document.querySelector('.js-pager-list');
   var pagerItemsList = document.querySelectorAll('.pager__list-item');
-  var pagerPagesList = document.querySelectorAll('.pager__page');
-  var prev = document.querySelector('.pager__prev');
-  var next = document.querySelector('.pager__next');
+  var pagerPagesList = document.querySelectorAll('.js-pager-page');
+  var prev = document.querySelector('.js-pager-prev');
+  var next = document.querySelector('.js-pager-next');
   var currentPage = 0;
 
 
@@ -52,16 +52,17 @@
 
   function createPages() {
     rowsOnPage = +showInput.value;
-    if (rowsOnPage) {
-      amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    if (!rowsOnPage) {
+      rowsOnPage = 1;
     }
+    amountOfPages = Math.ceil(rows.length / rowsOnPage);
     clearPages();
     for (var i = 0; i < amountOfPages; i++) {
       var pagerItem = document.createElement('li');
-      pagerItem.classList.add('pager__list-item');
+      pagerItem.classList.add('pager__list-item', 'js-pager-list-item');
       list.appendChild(pagerItem);
       var pagerPage = document.createElement('a');
-      pagerPage.classList.add('pager__page');
+      pagerPage.classList.add('pager__page', 'js-pager-page');
       pagerPage.setAttribute('href', '#');
       pagerPage.innerText = '' + (i + 1);
       pagerItem.appendChild(pagerPage);
@@ -77,11 +78,12 @@
 
   function setCurrentPage() {
     rowsOnPage = +showInput.value;
-    if (rowsOnPage) {
-      amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    if (!rowsOnPage) {
+      rowsOnPage = 1;
     }
-    pagerItemsList = document.querySelectorAll('.pager__list-item');
-    pagerPagesList = document.querySelectorAll('.pager__page');
+    amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    pagerItemsList = document.querySelectorAll('.js-pager-list-item');
+    pagerPagesList = document.querySelectorAll('.js-pager-page');
     if (pagerPagesList[currentPage]) {
       var tripleDots = document.createElement('li');
       tripleDots.innerText = '...';
@@ -157,11 +159,12 @@
   }
 
   function showNext() {
-    pagerPagesList = document.querySelectorAll('.pager__page');
+    pagerPagesList = document.querySelectorAll('.js-pager-page');
     rowsOnPage = +showInput.value;
-    if (rowsOnPage) {
-      amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    if (!rowsOnPage) {
+      rowsOnPage = 1;
     }
+    amountOfPages = Math.ceil(rows.length / rowsOnPage);
     currentPage++;
     if (pagerPagesList[currentPage]) {
       pagerPagesList[currentPage - 1].classList.remove('pager__page--current');
@@ -172,11 +175,12 @@
   }
 
   function showPrev() {
-    pagerPagesList = document.querySelectorAll('.pager__page');
+    pagerPagesList = document.querySelectorAll('.js-pager-page');
     rowsOnPage = +showInput.value;
-    if (rowsOnPage) {
-      amountOfPages = Math.ceil(rows.length / rowsOnPage);
+    if (!rowsOnPage) {
+      rowsOnPage = 1;
     }
+    amountOfPages = Math.ceil(rows.length / rowsOnPage);
     currentPage--;
     if (pagerPagesList[currentPage]) {
       pagerPagesList[currentPage + 1].classList.remove('pager__page--current');
@@ -191,14 +195,15 @@
       rows[i].style.display = '';
       positions[i].innerText = i + 1;
     }
-    for (i = 0; i < rows.length - 1; i += rowsOnPage) {
+    for (i = 0; i < rows.length; i += rowsOnPage) {
       for (var j = i; j < i + rowsOnPage; j++) {
         if (rows[j] && (j < currentPage * rowsOnPage || j > currentPage * rowsOnPage + rowsOnPage - 1)) {
           rows[j].style.display = 'none';
         }
       }
     }
-    var pagerInfo = document.querySelector('.pager__info');
+
+    var pagerInfo = document.querySelector('.js-pager-info');
     if (currentPage === amountOfPages - 1) {
       pagerInfo.innerText = 'Show ' + (currentPage * rowsOnPage + 1) + ' to ' + rows.length + ' of ' + rows.length + ' rows';
     } else {
@@ -209,13 +214,15 @@
   function filterRows() {
     var cell = document.querySelectorAll('.country');
     var value = filterInput.value.toLowerCase();
-    var pager = document.querySelector('.pager');
-    var showInput = document.querySelector('.show__input');
-    var showTitle = document.querySelectorAll('.show__title');
+    var pager = document.querySelector('.js-pager');
+    var showInput = document.querySelector('.js-show-input');
+    var showTitle = document.querySelectorAll('.js-show-title');
     var searchResult = 0;
     rowsOnPage = +showInput.value;
+    if (!rowsOnPage) {
+      rowsOnPage = 1;
+    }
     amountOfPages = Math.ceil(rows.length / rowsOnPage);
-
     if (value !== '') {
       for (var i = 0; i < rows.length; i++) {
         if (!cell[i].innerHTML.toLowerCase().includes(value)) {

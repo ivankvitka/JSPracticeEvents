@@ -19,12 +19,8 @@
     top: 50%;
     left: 50%;
     background-color: #4f4f4f;
-    transform:translate(-50%, -50%) translateX(-200%);
+    transform: translate(-50%, -50%) translateX(-200%);
     transition: all 0.5s;
-
-    &--visible {
-      transform: translate(-50%, -50%);
-    }
   }
 
   &__close-btn {
@@ -43,10 +39,6 @@
     &:hover {
       color: lightgray;
     }
-
-    &--visible {
-      opacity: 1;
-    }
   }
 
   &__title {
@@ -56,10 +48,6 @@
     opacity: 0;
     transition: all 0.5s;
     transition-delay: 0.5s;
-
-    &--visible {
-      opacity: 1;
-    }
   }
 
   &__description {
@@ -67,14 +55,27 @@
     opacity: 0;
     transition: all 0.5s;
     transition-delay: 0.8s;
-
-    &--visible {
-      opacity: 1;
-    }
   }
 
   &--visible {
     opacity: 1;
     z-index: 30;
+
+    .modal__window {
+      transform: translate(-50%, -50%);
+    }
+
+    .modal__close-btn {
+      opacity: 1;
+    }
+
+    .modal__title {
+      opacity: 1;
+    }
+
+    .modal__description {
+      opacity: 1;
+    }
+
   }
 }

@@ -1,18 +1,18 @@
 (function() {
-  var tabs = document.querySelectorAll('.tabs-wrapper__title');
-  var descriptions = document.querySelectorAll('.tabs-wrapper__description');
+  var tabs = document.querySelectorAll('.js-tabs-wrapper-title');
+  var descriptions = document.querySelectorAll('.js-tabs-wrapper-description');
   tabs.indexOf = [].indexOf;
 
 
   for (var i = 0; i < tabs.length; i++) {
     tabs[i].addEventListener('click', function() {
       for (var j = 0; j < tabs.length; j++) {
-        tabs[j].classList.remove('tabs-wrapper__title--current');
-        descriptions[j].classList.remove('tabs-wrapper__description--current');
+        tabs[j].classList.remove('title-current');
+        descriptions[j].classList.remove('description-current');
       }
-      this.classList.add('tabs-wrapper__title--current');
+      this.classList.add('title-current');
       var position = tabs.indexOf(this);
-      descriptions[position].classList.add('tabs-wrapper__description--current')
+      descriptions[position].classList.add('description-current')
     })
   }
 })();
